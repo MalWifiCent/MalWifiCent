@@ -3,7 +3,7 @@ MalWiFiCent was founded by three students at Noroff University College as a proj
 
 ## Install  
 1. Clone the MalWiFiCent project to your computer:  
-`git clone https://github.com/Xistens/MalWiFicent.git`
+`git clone https://github.com/MalWifiCent/MalWifiCent.git`
 
 2. Navigate to the `src` folder within the project (<git clone dir>/MalWiFiCent/src/).
 
