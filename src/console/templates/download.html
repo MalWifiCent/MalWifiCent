@@ -1,0 +1,30 @@
+{% extends "header.html" %}
+{% block title %}Login{% endblock %} 
+{% block body %}
+
+<div class="container">
+	<div class="panel">
+		<h4>Log Files:</h4>
+		<ul class="list-group list-group-flush">
+			{% for log in log_files %}
+			<li class="list-group-item">
+				<span>{{log[0]}}    </span>
+				(<a href="view/{{log[0]}}">View</a> | <a href="download/log/{{log[0]}}">Download</a>)
+				<div class="float-right">{{'%0.3f' | format(log[1]|float)}} kb</div>
+			</li>
+			{% endfor%}
+		</ul>
+		<h4>Captured Files:</h4>
+		<ul id="demo" class="list-group list-group-flush">
+			{% for cap in cap_files %}
+			<li class="list-group-item">
+				<a href="download/capture/{{cap[0]}}">{{cap[0]}}</a>
+				<div class="float-right">{{'%0.3f' | format(cap[1]|float)}} kb</div>
+			</li>
+			{% endfor%}
+		</ul>
+	</div>
+</div>
+</body>
+</html>
+{% endblock %}

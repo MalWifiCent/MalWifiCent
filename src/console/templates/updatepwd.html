@@ -1,0 +1,29 @@
+{% extends "header.html" %}
+{% block title %}Login{% endblock %} 
+{% block body %}
+<div class="container">
+    <div class="login-form">
+        <form action="{{ url_for('changepwd') }}" method="post">
+            <h2 class="text-center">Change your password</h2>       
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Current Password" required="required" name="current-password">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="New Password" required="required" name="password">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="New Password" required="required" name="password2">
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block">Change</button>
+            </div>
+            <div class="clearfix">
+                <label class="pull-left checkbox-inline"></label>
+            </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        </form>
+    </div>
+</div>
+</body>
+</html>
+{% endblock %}    

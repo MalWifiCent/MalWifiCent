@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset = "UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+  <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}"/>
+</head>
+
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand navbar-image" href="{{ url_for('live')}}"><img src="{{ url_for('static', filename='img/logo.png') }}" alt=""></a>
+            </div>
+            
+            <div class="collapse navbar-collapse" id="navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="nav-item">
+                        <a href="{{ url_for('about') }}">About</a>
+                    </li>
+                        {% if session.user_id %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('live') }}">Control Panel</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('files') }}">Result</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('changepwd') }}">Change Password</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ url_for('logout') }}">Log out</a>
+                        </li>
+                        {% else %}
+                        <li class="nav-item">
+                            <a href="{{ url_for('login') }}">Login</a>
+                        </li>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+{% for category, message in messages %}
+<div class="alert alert-{{ category }}">
+{{ message }}
+</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+{% if session.user_id %}
+<ul class="container">
+    <div class="row">
+        <h4>Status:</h4>
+        <div class="col-sm-12 col-md-6">
+            {% if (inet_status == 1) %}
+                <span>INetSim Running</span>
+            {% else %}
+                <span>INetSim Not Running</span>
+            {% endif %}
+        </div>
+        <div class="col-sm-12 col-md-6">
+            {% if (tpcd_status[0] == 1) %}
+                <span>Tcpdump Running On Interface: {{ tpcd_status[1] }}</span>
+            {% else %}
+                <span>Tcpdump Not Running</span>
+            {% endif %}
+        </div>
+    </div>
+</ul>
+{% endif %}
+{% block body %}{% endblock %}
